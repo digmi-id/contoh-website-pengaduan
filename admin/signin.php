@@ -1,5 +1,5 @@
-<?php
-require_once("../classes/Config.php");
+<?php require_once("../classes/Config.php");
+
 $Conf = new Config();
 $connection = $Conf->getConnection();
 
