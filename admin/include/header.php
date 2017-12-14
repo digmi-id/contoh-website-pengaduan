@@ -11,9 +11,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="bagian.php">Bagian</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="penanganan.php">Penanganan</a>
-                    </li>
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">

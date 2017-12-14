@@ -26,41 +26,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Admin | Web Pengaduan</title>
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="../assets/css/sticky-footer-navbar.css" rel="stylesheet">
+    <link href="../assets/css/custom.css" rel="stylesheet">
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark justify-content-between">
-            <div class="container">
-              
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.php">Home</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="bagian.php">Bagian
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="penanganan.php">penanganan</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle btn btn-danger" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Profil</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="signout.php">Keluar</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <?php include_once("include/header.php"); ?>
 
     <!-- Begin page content -->
     <main role="main" class="container" style="margin-top: 20px;">
@@ -96,11 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </table>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <span class="text-muted">Copyright &copy; <?php echo date("Y"); ?> Ramita - Web Pengaduan</span>
-        </div>
-    </footer>
+    <?php include_once("include/footer.php"); ?>
 
     <script src="../assets/js/jquery-3.2.1.slim.min.js"></script>
     <script src="../assets/js/popper.min.js"></script>

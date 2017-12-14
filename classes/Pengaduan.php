@@ -48,4 +48,14 @@ class Pengaduan {
 		$query->execute();
 		return $query;
 	}
+
+	public function delete() {
+		$sql = "DELETE FROM {$this->table} WHERE id=?";
+		$query = $this->connection->prepare($sql);
+		$query->bindParam(1, $this->id);
+		if ($query->execute()) {
+			return true;
+		}
+		return false;
+	}
 }

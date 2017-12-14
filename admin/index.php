@@ -5,6 +5,18 @@ $Conf = new Config(); $connection = $Conf->getConnection();
 
 include("../classes/Pengaduan.php");
 $Pengaduan = new Pengaduan($connection);
+
+include("../classes/Penanganan.php");
+$Penanganan = new Penanganan($connection);
+
+if (isset($_GET["delete"]) AND $_GET["delete"] != "") {
+    $Pengaduan->id = $_GET["delete"];
+    if ($Pengaduan->delete()) {
+        // handle success
+    } else {
+        // handle failed
+    }
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -35,6 +47,7 @@ $Pengaduan = new Pengaduan($connection);
                 <th scope="col">Lokasi</th>
                 <th scope="col">Masalah</th>
                 <th scope="col">Tanggal</th>
+                <th scope="col">Status</th>
                 <th scope="col"></th>
                 </tr>
             </thead>
@@ -48,9 +61,10 @@ $Pengaduan = new Pengaduan($connection);
                         <td><?php echo $row["lokasi"]; ?></td>
                         <td><?php echo $row["masalah"]; ?></td>
                         <td><?php echo $row["tanggal"]; ?></td>
+                        <td><span class="badge badge-<?php echo ($Penanganan->getStatus($row["id"])) ? "primary" : "danger"; ?>"><?php echo ($Penanganan->getStatus($row["id"])) ? "Ok" : "No"; ?></span></td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Opsi">
-                                <a href="penanganan.php" class="btn btn-secondary btn-sm">Proses</a>
+                                <a href="_penanganan.php?id=<?php echo $row["id"]; ?>" class="btn btn-secondary btn-sm <?php echo ($Penanganan->getStatus($row["id"])) ? "disabled" : ""; ?>">Proses</a>
                                 <a href="?delete=<?php echo $row["id"]; ?>" class="btn btn-secondary btn-sm">Delete</a>
                             </div>
                         </td>
