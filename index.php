@@ -5,6 +5,9 @@ $Conf = new Config(); $connection = $Conf->getConnection();
 
 include("classes/Pengaduan.php");
 $Pengaduan = new Pengaduan($connection);
+
+include("classes/Penanganan.php");
+$Penanganan = new Penanganan($connection);
 ?>
 <!doctype html>
 <html lang="en">
@@ -30,7 +33,7 @@ $Pengaduan = new Pengaduan($connection);
             <?php $rows = $Pengaduan->readByUser($_SESSION["id"]); while ($row = $rows->fetch(PDO::FETCH_ASSOC)): ?>
                 <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1"><?php echo $row["jenis"]; ?></h5>
+                        <h5 class="mb-1"><?php echo $row["jenis"]; ?> <span class="badge badge-<?php echo ($Penanganan->getStatus($row["id"])) ? "primary" : "danger"; ?>"><?php echo ($Penanganan->getStatus($row["id"])) ? "Ok" : "No"; ?></span></h5>
                         <small><?php echo $row["tanggal"]; ?></small>
                     </div>
                     <p class="mb-1"><?php echo $row["masalah"]; ?></p>

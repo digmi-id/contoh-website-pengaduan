@@ -43,7 +43,7 @@ class Pengaduan {
 	}
 
 	public function readByUser($id_user) {
-		$sql = "SELECT a.lokasi, a.masalah, a.tanggal, b.nama AS jenis, c.nama AS bagian FROM {$this->table} a JOIN jenis b ON a.id_jenis=b.id JOIN bagian c ON a.id_bagian=c.id WHERE id_user={$id_user} ORDER BY a.id ASC";
+		$sql = "SELECT a.id, a.lokasi, a.masalah, a.tanggal, b.nama AS jenis, c.nama AS bagian FROM {$this->table} a JOIN jenis b ON a.id_jenis=b.id JOIN bagian c ON a.id_bagian=c.id WHERE id_user={$id_user} ORDER BY a.id ASC";
 		$query = $this->connection->prepare($sql);
 		$query->execute();
 		return $query;
