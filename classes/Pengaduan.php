@@ -49,6 +49,15 @@ class Pengaduan {
 		return $query;
 	}
 
+	public function rowCountByUser($id_user) {
+		$sql = "SELECT id FROM {$this->table} WHERE id_user={$id_user}";
+		$query = $this->connection->prepare($sql);
+		$query->execute();
+		if ($query->rowCount()) {
+			return true;
+		}
+		return false;
+	}
 	public function delete() {
 		$sql = "DELETE FROM {$this->table} WHERE id=?";
 		$query = $this->connection->prepare($sql);

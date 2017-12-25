@@ -30,7 +30,8 @@ $Penanganan = new Penanganan($connection);
     <!-- Begin page content -->
     <main role="main" class="container">
         <div class="list-group">
-            <?php $rows = $Pengaduan->readByUser($_SESSION["id"]); while ($row = $rows->fetch(PDO::FETCH_ASSOC)): ?>
+            <?php if ($Pengaduan->rowCountByUser($_SESSION["id"])): ?>
+                <?php $rows = $Pengaduan->readByUser($_SESSION["id"]); while ($row = $rows->fetch(PDO::FETCH_ASSOC)): ?>
                 <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1"><?php echo $row["jenis"]; ?> <span class="badge badge-<?php echo ($Penanganan->getStatus($row["id"])) ? "primary" : "danger"; ?>"><?php echo ($Penanganan->getStatus($row["id"])) ? "Ok" : "No"; ?></span></h5>
@@ -39,7 +40,12 @@ $Penanganan = new Penanganan($connection);
                     <p class="mb-1"><?php echo $row["masalah"]; ?></p>
                     <small><?php echo $row["lokasi"]; ?></small>
                 </a>
-            <?php endwhile; ?>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <div class="alert alert-info" role="alert">
+                    Belum ada pengaduan dibuat.
+                </div>
+            <?php endif; ?>
         </div>
     </main>
 
