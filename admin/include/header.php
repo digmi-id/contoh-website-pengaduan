@@ -11,7 +11,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="bagian.php">Bagian</a>
                     </li>
-                    <?php if ($_SESSION['jenis'] == 'root'): ?>
+                    <?php if ($_SESSION['jenis'] == 'Root'): ?>
                         <li class="nav-item">
                             <a class="nav-link" href="pengguna.php">Pengguna</a>
                         </li>
