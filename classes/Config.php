@@ -4,7 +4,7 @@ class Config {
 	private $DB_HOST = "localhost";
 	private $DB_NAME = "pengaduan";
 	private $DB_USER = "root";
-	private $DB_PASS = "idiot";
+	private $DB_PASS = "@Root<<0";
 
 	public $connection;
 

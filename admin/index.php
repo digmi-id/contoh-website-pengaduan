@@ -40,10 +40,10 @@ if (isset($_GET["delete"]) AND $_GET["delete"] != "") {
         <table class="table">
             <thead>
                 <tr>
-                <th scope="col">#</th>
+                <th scope="col">No</th>
                 <th scope="col">User</th>
                 <th scope="col">Bagian</th>
-                <th scope="col">Jenis</th>
+                <th scope="col">Jenis Permintaan</th>
                 <th scope="col">Lokasi</th>
                 <th scope="col">Masalah</th>
                 <th scope="col">Tanggal</th>
@@ -61,11 +61,13 @@ if (isset($_GET["delete"]) AND $_GET["delete"] != "") {
                         <td><?php echo $row["lokasi"]; ?></td>
                         <td><?php echo $row["masalah"]; ?></td>
                         <td><?php echo $row["tanggal"]; ?></td>
-                        <td><span class="badge badge-<?php echo ($Penanganan->getStatus($row["id"])) ? "primary" : "danger"; ?>"><?php echo ($Penanganan->getStatus($row["id"])) ? "Ok" : "No"; ?></span></td>
+                        <td><span class="badge badge-<?php echo ($Penanganan->getStatus($row["id"])) ? "success" : "danger"; ?>"><?php echo ($Penanganan->getStatus($row["id"])) ? "Disetujui" : "Prosess"; ?></span></td>
+                        <td><span class="badge badge-<?php echo ($Penanganan->getStatus($row["id"])) ? "success" : "danger"; ?>"><?php echo ($Penanganan->getStatus($row["id"])) ? "Disetujui" : "Prosess"; ?></span></td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Opsi">
                                 <a href="_penanganan.php?id=<?php echo $row["id"]; ?>" class="btn btn-secondary btn-sm <?php echo ($Penanganan->getStatus($row["id"])) ? "disabled" : ""; ?>">Proses</a>
                                 <a href="?delete=<?php echo $row["id"]; ?>" class="btn btn-secondary btn-sm">Delete</a>
+                                   
                             </div>
                         </td>
                     </tr>

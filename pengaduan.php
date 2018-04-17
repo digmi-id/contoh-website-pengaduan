@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="form-group">
                 <label for="lokasi">Lokasi</label>
-                <input name="lokasi" type="text" class="form-control" id="lokasi" placeholder="Lokasi">
+                <input name="lokasi" type="text" class="form-control" id="lokasi" placeholder="MC/Bojong/Poly">
             </div>
             <div class="form-group">
                 <label for="masalah">Masalah</label>

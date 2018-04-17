@@ -34,13 +34,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="container">
         <form class="form-signin" method="post">
-            <h2 class="form-signin-heading text-center">Login Admin</h2>
+        <center><img style="margin-right: 10px;" width=130 height=80 src="images/logo.png" /></center>
+        <hr>
+        <font color="black" size="3">Login Admin!</font>
             <hr>
+            
             <label for="email" class="sr-only">Alamat Email</label>
             <input type="email" name="email" id="email" class="form-control" placeholder="Alamat Email" required autofocus>
             <label for="password" class="sr-only">Password</label>
             <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Masuk</button>
+            <button class="btn btn-lg btn-danger btn-block" type="submit">Masuk</button>
         </form>
     </div>
 </body>

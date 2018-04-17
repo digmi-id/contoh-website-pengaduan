@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../../../favicon.ico">
+    <link rel="icon" href="/assets/images/logo.jpg">
     <title>Login User</title>
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/signin.css" rel="stylesheet">
@@ -34,13 +34,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="container">
         <form class="form-signin" method="post">
-            <h2 class="form-signin-heading text-center">Login User</h2>
-            <hr>
+        <center><img style="margin-right: 10px;" width=130 height=80 src="assets/images/logo.png" /></center>
+        <hr>
             <label for="email" class="sr-only">Alamat Email</label>
             <input type="email" name="email" id="email" class="form-control" placeholder="Alamat Email" required autofocus>
             <label for="password" class="sr-only">Password</label>
             <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Masuk</button>
+            <button class="btn btn-lg btn-danger btn-block" type="submit">Masuk</button>
             <hr>
             Belum punya akun? <a href="signup.php">Daftar!</a>
         </form>

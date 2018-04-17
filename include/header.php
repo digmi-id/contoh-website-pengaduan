@@ -15,6 +15,14 @@
                         </a>
                     </li>
                 </ul>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="assets/images/LKI.docx">Download LKI
+                         <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle btn btn-danger" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo ucwords($_SESSION["nama"]); ?></a>

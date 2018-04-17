@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="password" class="sr-only">Password</label>
             <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
             
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Daftar</button>
+            <button class="btn btn-lg btn-danger btn-block" type="submit">Daftar</button>
         </form>
     </div>
 </body>
