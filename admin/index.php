@@ -18,14 +18,14 @@ if (isset($_GET["delete"]) AND $_GET["delete"] != "") {
     }
 }
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../../../favicon.ico">
+    <link rel="icon" href="../assets/images/logo.png">
     <title>Admin | Web Pengaduan</title>
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="../assets/css/sticky-footer-navbar.css" rel="stylesheet">
@@ -62,12 +62,10 @@ if (isset($_GET["delete"]) AND $_GET["delete"] != "") {
                         <td><?php echo $row["masalah"]; ?></td>
                         <td><?php echo $row["tanggal"]; ?></td>
                         <td><span class="badge badge-<?php echo ($Penanganan->getStatus($row["id"])) ? "success" : "danger"; ?>"><?php echo ($Penanganan->getStatus($row["id"])) ? "Disetujui" : "Prosess"; ?></span></td>
-                        <td><span class="badge badge-<?php echo ($Penanganan->getStatus($row["id"])) ? "success" : "danger"; ?>"><?php echo ($Penanganan->getStatus($row["id"])) ? "Disetujui" : "Prosess"; ?></span></td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Opsi">
                                 <a href="_penanganan.php?id=<?php echo $row["id"]; ?>" class="btn btn-secondary btn-sm <?php echo ($Penanganan->getStatus($row["id"])) ? "disabled" : ""; ?>">Proses</a>
                                 <a href="?delete=<?php echo $row["id"]; ?>" class="btn btn-secondary btn-sm">Delete</a>
-                                   
                             </div>
                         </td>
                     </tr>
