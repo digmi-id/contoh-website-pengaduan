@@ -11,6 +11,7 @@ class Pengaduan {
 	public $id_user;
 	public $lokasi;
 	public $masalah;
+	public $gambar;
 	public $tanggal;
 
 	public function __construct($database) {
@@ -19,14 +20,15 @@ class Pengaduan {
 	}
 
 	public function insert() {
-		$sql = "INSERT INTO {$this->table} VALUES(NULL, ?, ?, ?, ?, ?, ?)";
+		$sql = "INSERT INTO {$this->table} VALUES(NULL, ?, ?, ?, ?, ?, ?, ?)";
 		$query = $this->connection->prepare($sql);
 		$query->bindParam(1, $this->id_bagian);
 		$query->bindParam(2, $this->id_jenis);
 		$query->bindParam(3, $this->id_user);
 		$query->bindParam(4, $this->lokasi);
 		$query->bindParam(5, $this->masalah);
-		$query->bindParam(6, $this->tanggal);
+		$query->bindParam(6, $this->gambar);
+		$query->bindParam(7, $this->tanggal);
 
 		if ($query->execute()) {
 			return true;
