@@ -49,13 +49,31 @@ class Penanganan {
 	}
 
 	public function getStatus($id) {
-		$sql = "SELECT id_aduan FROM {$this->table} WHERE id_aduan={$id}";
+		$sql = "SELECT `status` FROM {$this->table} WHERE id_aduan={$id}";
 		$query = $this->connection->prepare($sql);
         $query->execute();
 
-        if ($query->rowCount()) {
-			return true;
-        }
-        return false;
+		$row = $query->fetch(PDO::FETCH_ASSOC);
+		
+		return ($row['status']) ? $row['status'] : "Menunggu Persetujuan";
+	}
+
+	public function getStatusColor($id) {
+		$sql = "SELECT `status` FROM {$this->table} WHERE id_aduan={$id}";
+		$query = $this->connection->prepare($sql);
+        $query->execute();
+		$row = $query->fetch(PDO::FETCH_ASSOC);
+
+		if ($row['status'] == "Menunggu Persetujuan") {
+			return "dark";
+		} else if ($row['status'] == "Disetujui") {
+			return "info";
+		} else if ($row['status'] == "Ditolak") {
+			return "danger";
+		} else if ($row['status'] == "Sedang Dikerjakan") {
+			return "primary";
+		} else if ($row['status'] == "Selesai") {
+			return "success";
+		}
 	}
 }
