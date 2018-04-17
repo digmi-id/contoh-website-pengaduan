@@ -7,9 +7,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include_once("classes/User.php");
     $User = new User($connection);
     
-    $User->nama = $_POST['nama'];
+    $User->nama = ucwords($_POST['nama']);
     $User->nohp = $_POST['nohp'];
-    $User->email = $_POST['email'];
+    $User->email = strtolower($_POST['email']);
     $User->password = md5($_POST['password']);
     
     if ($User->insert()) {
