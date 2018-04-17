@@ -6,9 +6,9 @@ class Admin {
 
 	// Field tabel
 	public $id;
+	public $jenis;
+	public $username;
 	public $nama;
-	public $nohp;
-	public $email;
 	public $password;
 
 	public function __construct($database) {
@@ -18,9 +18,9 @@ class Admin {
 	public function insert() {
 		$sql = "INSERT INTO {$this->table} VALUES(NULL, ?, ?, ?, ?)";
 		$query = $this->connection->prepare($sql);
-		$query->bindParam(1, $this->nama);
-		$query->bindParam(2, $this->nohp);
-		$query->bindParam(3, $this->email);
+		$query->bindParam(1, $this->jenis);
+		$query->bindParam(2, $this->username);
+		$query->bindParam(3, $this->nama);
 		$query->bindParam(4, $this->password);
 
 		if ($query->execute()) {

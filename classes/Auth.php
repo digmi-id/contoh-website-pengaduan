@@ -4,18 +4,20 @@ class Auth {
     private $connection;
     public $table;
 
-	// Field tabel
-	public $id;
-	public $nama;
-	public $nohp;
-	public $email;
-	public $password;
+    // Field table
+    public $id;
+    public $jenis;
+    public $username;
+    public $nama;
+    public $nohp;
+    public $email;
+    public $password;
 
 	public $user_data;
 
-	public function __construct($database, $tabel) {
+	public function __construct($database, $table) {
         $this->connection = $database;
-        $this->table = $tabel;
+        $this->table = $table;
 	}
 
     public function login() {
@@ -24,20 +26,27 @@ class Auth {
             session_start();
             $_SESSION['id'] = $user_data['id'];
             $_SESSION['nama'] = $user_data['nama'];
-            $_SESSION['email'] = $user_data['email'];
             $_SESSION['nohp'] = $user_data['nohp'];
-            $_SESSION['password'] = $user_data['password'];
+            if ($this->table == "admin") {
+                $_SESSION['username'] = $user_data['username'];
+                $_SESSION['jenis'] = $user_data['jenis'];
+            } else {
+                $_SESSION['email'] = $user_data['email'];
+            }
             $_SESSION['type'] = $this->table;
             $_SESSION['is_logged'] = true;
+            
             return $user_data['nama'];
         }
         return false;
     }
 
     protected function checkCredentials() {
-        $sql = "SELECT * FROM {$this->table} WHERE email=? AND password=?";
+        $field = ($this->table == "admin") ? "username" : "email";
+        $sql = "SELECT * FROM {$this->table} WHERE {$field}=? AND password=?";
         $query = $this->connection->prepare($sql);
-        $query->bindParam(1, $this->email);
+        $identifier = ($this->table == "admin") ? $this->username : $this->email;
+        $query->bindParam(1, $identifier);
         $query->bindParam(2, $this->password);
         $query->execute();
 

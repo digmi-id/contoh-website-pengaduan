@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include_once("../classes/Auth.php");
     $Login = new Auth($connection, 'admin');
     
-    $Login->email = $_POST['email'];
+    $Login->username = $_POST['username'];
     $Login->password = md5($_POST['password']);
     
     if ($Login->login()) {
@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../../../favicon.ico">
+    <link rel="icon" href="../assets/images/logo.png">
     <title>Login Admin</title>
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="../assets/css/signin.css" rel="stylesheet">
@@ -39,8 +39,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <font color="black" size="3">Login Admin!</font>
             <hr>
             
-            <label for="email" class="sr-only">Alamat Email</label>
-            <input type="email" name="email" id="email" class="form-control" placeholder="Alamat Email" required autofocus>
+            <label for="username" class="sr-only">Username</label>
+            <input type="text" name="username" id="username" class="form-control" placeholder="Username" required autofocus>
             <label for="password" class="sr-only">Password</label>
             <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
             <button class="btn btn-lg btn-danger btn-block" type="submit">Masuk</button>
