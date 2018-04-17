@@ -45,7 +45,6 @@ if (isset($_GET["delete"]) AND $_GET["delete"] != "") {
                 <th scope="col">Bagian</th>
                 <th scope="col">Jenis Permintaan</th>
                 <th scope="col">Lokasi</th>
-                <th scope="col">Masalah</th>
                 <th scope="col">Tanggal</th>
                 <th scope="col">Status</th>
                 <th scope="col"></th>
@@ -59,13 +58,12 @@ if (isset($_GET["delete"]) AND $_GET["delete"] != "") {
                         <td><?php echo $row["bagian"]; ?></td>
                         <td><?php echo $row["jenis"]; ?></td>
                         <td><?php echo $row["lokasi"]; ?></td>
-                        <td><?php echo $row["masalah"]; ?></td>
                         <td><?php echo $row["tanggal"]; ?></td>
-                        <td><span class="badge badge-<?php echo ($Penanganan->getStatus($row["id"])) ? "success" : "danger"; ?>"><?php echo ($Penanganan->getStatus($row["id"])) ? "Disetujui" : "Prosess"; ?></span></td>
+                        <td><span class="badge badge-<?php echo $Penanganan->getStatusColor($row["id"]); ?>"><?php echo $Penanganan->getStatus($row["id"]); ?></span></td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Opsi">
-                                <a href="_penanganan.php?id=<?php echo $row["id"]; ?>" class="btn btn-secondary btn-sm <?php echo ($Penanganan->getStatus($row["id"])) ? "disabled" : ""; ?>">Proses</a>
-                                <a href="?delete=<?php echo $row["id"]; ?>" class="btn btn-secondary btn-sm">Delete</a>
+                                <a href="penanganan.php?id=<?php echo $row["id"]; ?>" class="btn btn-primary btn-sm">Lihat Detail</a>
+                                <a href="?delete=<?php echo $row["id"]; ?>" class="btn btn-danger btn-sm">Delete</a>
                             </div>
                         </td>
                     </tr>

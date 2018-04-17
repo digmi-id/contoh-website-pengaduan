@@ -34,28 +34,21 @@ $Penanganan = new Penanganan($connection);
         <?php if ($Pengaduan->rowCountByUser($_SESSION["id"])): ?>
             <div class="card-deck">
                 <?php $rows = $Pengaduan->readByUser($_SESSION["id"]); while ($row = $rows->fetch(PDO::FETCH_ASSOC)): ?>
-                    <?php
-                        if ($Penanganan->getStatus($row["id"])) {
-                            $status_color = "primary";
-                        } else {
-                            $status_color = "danger";
-                        }
-                    ?>
-                        <div class="card border-<?php echo $status_color; ?>">
-                            <img class="card-img-top" height="230" src="assets/images/pengaduan/<?php echo $row["gambar"]; ?>">
-                            <div class="card-body text-<?php echo $status_color; ?>">
-                                <p class="card-text">
-                                    <small class="text-muted"><?php echo $row["lokasi"]; ?> - <?php echo $row["tanggal"]; ?></small><br>
-                                    <?php echo $row["masalah"]; ?>
-                                </p>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item"><?php echo $row["jenis"]; ?></li>
-                            </ul>
-                            <div class="card-footer text-muted">
-                                <?php echo ($Penanganan->getStatus($row["id"])) ? "Disetujui"   : "Proses"; ?>
-                            </div>
+                    <div class="card border-<?php echo $Penanganan->getStatusColor($row["id"]); ?>">
+                        <img class="card-img-top" height="230" src="assets/images/pengaduan/<?php echo $row["gambar"]; ?>">
+                        <div class="card-body text-<?php echo $Penanganan->getStatusColor($row["id"]); ?>">
+                            <p class="card-text">
+                                <small class="text-muted"><?php echo $row["lokasi"]; ?> - <?php echo $row["tanggal"]; ?></small><br>
+                                <?php echo $row["masalah"]; ?>
+                            </p>
                         </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><?php echo $row["jenis"]; ?></li>
+                        </ul>
+                        <div class="card-footer text-muted">
+                            <?php echo $Penanganan->getStatus($row["id"]); ?>
+                        </div>
+                    </div>
                 <?php endwhile; ?>
             </div>
         <?php else: ?>
