@@ -44,6 +44,13 @@ class Pengaduan {
 		return $query;
 	}
 
+	public function readOne($id){
+		$sql = "SELECT a.id, a.lokasi, a.masalah, a.tanggal, a.gambar, b.nama AS jenis, c.nama AS bagian, d.nama AS user FROM {$this->table} a JOIN jenis b ON a.id_jenis=b.id JOIN bagian c ON a.id_bagian=c.id JOIN user d ON d.id=a.id_user WHERE a.id={$id}";
+		$query = $this->connection->prepare($sql);
+		$query->execute();
+		return $query;
+	}
+
 	public function readByUser($id_user) {
 		$sql = "SELECT a.id, a.lokasi, a.masalah, a.gambar, a.tanggal, b.nama AS jenis, c.nama AS bagian FROM {$this->table} a JOIN jenis b ON a.id_jenis=b.id JOIN bagian c ON a.id_bagian=c.id WHERE id_user={$id_user} ORDER BY a.id ASC";
 		$query = $this->connection->prepare($sql);
