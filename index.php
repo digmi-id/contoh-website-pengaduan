@@ -10,7 +10,7 @@ include("classes/Penanganan.php");
 $Penanganan = new Penanganan($connection);
 
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -18,11 +18,12 @@ $Penanganan = new Penanganan($connection);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="/assets/images/logo.jpg">
+    <link rel="icon" href="assets/images/logo.png">
     <title>Home | Pengaduan IT</title>
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/sticky-footer-navbar.css" rel="stylesheet">
     <link href="assets/css/custom.css" rel="stylesheet">
+    <link href="assets/css/open-iconic-bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -30,24 +31,38 @@ $Penanganan = new Penanganan($connection);
 
     <!-- Begin page content -->
     <main role="main" class="container">
-        <div class="list-group">
-            <?php if ($Pengaduan->rowCountByUser($_SESSION["id"])): ?>
+        <?php if ($Pengaduan->rowCountByUser($_SESSION["id"])): ?>
+            <div class="card-deck">
                 <?php $rows = $Pengaduan->readByUser($_SESSION["id"]); while ($row = $rows->fetch(PDO::FETCH_ASSOC)): ?>
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1"><?php echo $row["jenis"]; ?> <span class="badge badge-<?php echo ($Penanganan->getStatus($row["id"])) ? "success"  : "danger"; ?>"><?php echo ($Penanganan->getStatus($row["id"])) ? "Disetujui"   : "Prosess"; ?> </span> </h5>  
-                        <small><?php echo $row["tanggal"]; ?></small>
-                    </div>
-                    <p class="mb-1"><?php echo $row["masalah"]; ?></p>
-                    <small><?php echo $row["lokasi"]; ?></small>
-                </a>
+                    <?php
+                        if ($Penanganan->getStatus($row["id"])) {
+                            $status_color = "primary";
+                        } else {
+                            $status_color = "danger";
+                        }
+                    ?>
+                        <div class="card border-<?php echo $status_color; ?>">
+                            <img class="card-img-top" height="230" src="assets/images/pengaduan/<?php echo $row["gambar"]; ?>">
+                            <div class="card-body text-<?php echo $status_color; ?>">
+                                <p class="card-text">
+                                    <small class="text-muted"><?php echo $row["lokasi"]; ?> - <?php echo $row["tanggal"]; ?></small><br>
+                                    <?php echo $row["masalah"]; ?>
+                                </p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><?php echo $row["jenis"]; ?></li>
+                            </ul>
+                            <div class="card-footer text-muted">
+                                <?php echo ($Penanganan->getStatus($row["id"])) ? "Disetujui"   : "Proses"; ?>
+                            </div>
+                        </div>
                 <?php endwhile; ?>
-            <?php else: ?>
-                <div class="alert alert-info" role="alert">
-                    Belum ada pengaduan dibuat.
-                </div>
-            <?php endif; ?>
-        </div>
+            </div>
+        <?php else: ?>
+            <div class="alert alert-info" role="alert">
+                Belum ada pengaduan dibuat.
+            </div>
+        <?php endif; ?>
     </main>
 
     <?php include_once("include/footer.php"); ?>
