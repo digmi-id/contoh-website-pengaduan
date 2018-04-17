@@ -12,12 +12,19 @@ $Bagian = new Bagian($connection);
 include("classes/Jenis.php");
 $Jenis = new Jenis($connection);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_POST) {
     $Pengaduan->id_bagian = $_POST["bagian"];
 	$Pengaduan->id_jenis = $_POST["jenis"];
 	$Pengaduan->id_user = $_SESSION["id"];
 	$Pengaduan->lokasi = $_POST["lokasi"];
-	$Pengaduan->masalah = $_POST["masalah"];
+    $Pengaduan->masalah = $_POST["masalah"];
+    
+    $x = explode('.', $_FILES['gambar']['name']);
+    $Pengaduan->gambar = date("dmYHis").".".strtolower(end($x));
+    if (! move_uploaded_file($_FILES['gambar']['tmp_name'], "assets/images/pengaduan/{$Pengaduan->gambar}")) {
+        echo die("Gagal upload gambar!");
+    }
+    
     if ($Pengaduan->insert()) {
         header("location: index.php");
     } else {
@@ -25,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -33,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="/assets/images/logo.jpg">
+    <link rel="icon" href="assets/images/logo.png">
     <title>Pengaduan | Pengaduan IT</title>
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/sticky-footer-navbar.css" rel="stylesheet">
@@ -45,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- Begin page content -->
     <main role="main" class="container">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="bagian">Bagian</label>
                 <select name="bagian" class="form-control" id="bagian">
@@ -67,6 +74,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-group">
                 <label for="lokasi">Lokasi</label>
                 <input name="lokasi" type="text" class="form-control" id="lokasi" placeholder="MC/Bojong/Poly">
+            </div>
+            <div class="form-group">
+                <label for="gambar">Upload Gambar</label>
+                <input type="file" name="gambar" class="form-control">
             </div>
             <div class="form-group">
                 <label for="masalah">Masalah</label>
