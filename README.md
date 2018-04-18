@@ -13,5 +13,6 @@
 4. Tim IT mengubah status menjadi "Selesai"
 
 ### TODO
-- [ ] Upload bukti gambar
-- [ ] Login menggunakan username
+- [x] Proses pengaduan dan persetujuan
+- [x] Upload bukti gambar
+- [x] Login menggunakan username
