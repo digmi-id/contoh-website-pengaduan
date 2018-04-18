@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2
--- http://www.phpmyadmin.net
+-- version 4.7.9
+-- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 14, 2017 at 03:46 PM
--- Server version: 5.7.19-0ubuntu0.16.04.1
--- PHP Version: 7.0.22-0ubuntu0.16.04.1
+-- Generation Time: Apr 18, 2018 at 07:43 AM
+-- Server version: 10.1.31-MariaDB
+-- PHP Version: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,7 +21,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `pengaduan`
 --
-CREATE DATABASE IF NOT EXISTS `pengaduan` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+CREATE DATABASE IF NOT EXISTS `pengaduan` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE `pengaduan`;
 
 -- --------------------------------------------------------
@@ -30,9 +32,9 @@ USE `pengaduan`;
 
 CREATE TABLE `admin` (
   `id` int(11) NOT NULL,
+  `jenis` enum('Root','Direktur','Tim IT') NOT NULL,
+  `username` varchar(100) NOT NULL,
   `nama` varchar(100) NOT NULL,
-  `nohp` varchar(13) NOT NULL,
-  `email` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -40,8 +42,9 @@ CREATE TABLE `admin` (
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`id`, `nama`, `nohp`, `email`, `password`) VALUES
-(1, 'root', '080000000000', 'root@pengaduan.com', '63a9f0ea7bb98050796b649e85481845');
+INSERT INTO `admin` (`id`, `jenis`, `username`, `nama`, `password`) VALUES
+(1, 'Root', 'root', 'Super User', '63a9f0ea7bb98050796b649e85481845'),
+(8, 'Direktur', 'direktur', 'Direktur Utama', '4fbfd324f5ffcdff5dbf6f019b02eca8');
 
 -- --------------------------------------------------------
 
@@ -59,9 +62,15 @@ CREATE TABLE `bagian` (
 --
 
 INSERT INTO `bagian` (`id`, `nama`) VALUES
-(1, 'Nama Bagian Satu'),
-(2, 'Nama Bagian Dua'),
-(3, 'Nama Bagian Tiga');
+(6, 'PPIC 1'),
+(7, 'PPIC 2'),
+(8, 'PPIC 3'),
+(9, 'HRD'),
+(10, 'PERSONALIA'),
+(11, 'QC 1'),
+(12, 'QC 2'),
+(13, 'QC 3'),
+(14, 'MAINTENANCE');
 
 -- --------------------------------------------------------
 
@@ -79,8 +88,9 @@ CREATE TABLE `jenis` (
 --
 
 INSERT INTO `jenis` (`id`, `nama`) VALUES
-(1, 'Jenis Satu'),
-(2, 'Jenis Dua');
+(1, 'Perbaikan'),
+(2, 'Permintaan dan Instalasi'),
+(3, 'Lain-lain');
 
 -- --------------------------------------------------------
 
@@ -92,10 +102,10 @@ CREATE TABLE `penanganan` (
   `id` int(11) NOT NULL,
   `id_aduan` int(11) NOT NULL,
   `id_admin` int(11) NOT NULL,
-  `status` enum('disetujui','tidak disetujui') NOT NULL,
-  `stok` enum('tersedia','tidak tersedia') NOT NULL,
-  `tanggal_pengerjaan` date NOT NULL,
-  `catatan` longtext NOT NULL
+  `status` enum('Menunggu Persetujuan','Disetujui','Ditolak','Sedang Dikerjakan','Selesai') NOT NULL,
+  `stok` enum('Tersedia','Tidak Tersedia') DEFAULT NULL,
+  `tanggal_pengerjaan` date DEFAULT NULL,
+  `catatan` longtext
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -103,7 +113,8 @@ CREATE TABLE `penanganan` (
 --
 
 INSERT INTO `penanganan` (`id`, `id_aduan`, `id_admin`, `status`, `stok`, `tanggal_pengerjaan`, `catatan`) VALUES
-(1, 2, 1, 'disetujui', 'tersedia', '2017-12-14', 'cataaaa');
+(1, 3, 1, 'Selesai', 'Tidak Tersedia', '2018-04-19', 'Lorem, ipsum dolor sit amet consectetur adipisicing elit.'),
+(2, 4, 8, 'Ditolak', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -118,16 +129,18 @@ CREATE TABLE `pengaduan` (
   `id_user` int(11) NOT NULL,
   `lokasi` varchar(50) NOT NULL,
   `masalah` longtext NOT NULL,
-  `tanggal` datetime NOT NULL
+  `gambar` varchar(100) NOT NULL,
+  `tanggal` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pengaduan`
 --
 
-INSERT INTO `pengaduan` (`id`, `id_bagian`, `id_jenis`, `id_user`, `lokasi`, `masalah`, `tanggal`) VALUES
-(2, 1, 2, 1, 'Bojong', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt eligendi non quam obcaecati cumque praesentium quod eius est laudantium, deserunt natus aspernatur enim tempora laboriosam rem provident voluptatibus et. Ab!', '2017-12-14 05:20:17'),
-(4, 2, 2, 1, 'Yogyakarta', 'Masalahnya adalah sata tidak tau masalahnya apa.', '2017-12-14 15:45:06');
+INSERT INTO `pengaduan` (`id`, `id_bagian`, `id_jenis`, `id_user`, `lokasi`, `masalah`, `gambar`, `tanggal`) VALUES
+(3, 7, 1, 1, 'Poly', 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic et provident illo, amet libero vero beatae. Iste earum quae sapiente quod veritatis aut dolore ut, laboriosam, sequi alias consequuntur veniam!', '17042018130011.png', '2018-04-17'),
+(4, 10, 2, 1, 'Bojong', 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic et provident illo, amet libero vero beatae. Iste earum quae sapiente quod veritatis aut dolore ut, laboriosam, sequi alias consequuntur veniam!', '17042018133640.png', '2018-04-17'),
+(5, 14, 3, 1, 'MC', 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic et provident illo, amet libero vero beatae. Iste earum quae sapiente quod veritatis aut dolore ut, laboriosam, sequi alias consequuntur veniam!', '17042018134316.png', '2018-04-17');
 
 -- --------------------------------------------------------
 
@@ -148,7 +161,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `nama`, `nohp`, `email`, `password`) VALUES
-(1, 'imam', '08970008875', 'imam.digmi@gmail.com', '670b14728ad9902aecba32e22fa4f6bd');
+(1, 'Ramita', '08970008875', 'ramita.digmi@gmail.com', 'be56e66270ab8b5d27808974f1794c85'),
+(6, 'Samsul', '09089080080', 'samsul@gmail.com', '670b14728ad9902aecba32e22fa4f6bd');
 
 --
 -- Indexes for dumped tables
@@ -159,8 +173,7 @@ INSERT INTO `user` (`id`, `nama`, `nohp`, `email`, `password`) VALUES
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nohp` (`nohp`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- Indexes for table `bagian`
@@ -211,32 +224,38 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `bagian`
 --
 ALTER TABLE `bagian`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 --
 -- AUTO_INCREMENT for table `jenis`
 --
 ALTER TABLE `jenis`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `penanganan`
 --
 ALTER TABLE `penanganan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `pengaduan`
 --
 ALTER TABLE `pengaduan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- Constraints for dumped tables
 --
@@ -255,6 +274,7 @@ ALTER TABLE `pengaduan`
   ADD CONSTRAINT `pengaduan_ibfk_1` FOREIGN KEY (`id_bagian`) REFERENCES `bagian` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `pengaduan_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `pengaduan_ibfk_3` FOREIGN KEY (`id_jenis`) REFERENCES `jenis` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
