@@ -67,6 +67,7 @@ class Pengaduan {
 		}
 		return false;
 	}
+
 	public function delete() {
 		$sql = "DELETE FROM {$this->table} WHERE id=?";
 		$query = $this->connection->prepare($sql);
